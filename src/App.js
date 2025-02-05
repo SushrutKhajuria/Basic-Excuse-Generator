@@ -6,9 +6,9 @@ import Axios from "axios";
 function App(){
  const [excuseGenerator , setExcuseGenerator] = useState("");
 
-const fetchExcuseGenerator = () =>{
+const fetchExcuseGenerator = (excuse) =>{
 
-  Axios.get("https://excuser-three.vercel.app/v1/excuse/")
+  Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`)
   .then((res)=>{
     console.log(res.data);
     setExcuseGenerator(res.data[0].excuse);
@@ -17,18 +17,17 @@ const fetchExcuseGenerator = () =>{
 }
 
  useEffect( ()=>{
-  Axios.get("https://excuser-three.vercel.app/v1/excuse/")
-  .then((res)=>{
-    console.log(res.data);
-    setExcuseGenerator(res.data[0].excuse);
-   })
+ fetchExcuseGenerator("family");
   
-  },[] )
+  },[])
 
   return(
     <div className="App">
-     <button onClick={fetchExcuseGenerator}> EXCUSEEEEEEE</button>
-     <p> {excuseGenerator}</p>
+     <button onClick={()=> fetchExcuseGenerator("family")}> Family</button>
+     <button onClick={()=> fetchExcuseGenerator("party")}> Party</button>
+     <button onClick={()=> fetchExcuseGenerator("office")}> Office</button>
+     <h1> {excuseGenerator}</h1>
+     
     </div>
     )
     
